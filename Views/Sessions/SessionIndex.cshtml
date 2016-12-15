@@ -1,0 +1,72 @@
+@model AutoMailerWebUI.Models.SessionList
+
+@{
+    ViewData["Title"] = "Sessions";
+}
+
+<header>
+<h2>Upcoming Sessions</h2>
+</header>
+
+@if(Model != null && Model.sessions.Length > 0)
+{
+    <table class="session_table">
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Members</th>
+            <th>Reminder Sent</th>
+        </tr>
+        @for (int i = 0; i < Model.sessions.Length; i++)
+        {
+            if (Model.sessions[i].ac == "Active")
+            {
+                <tr class="data_green">
+                    <td>@Model.sessions[i].sessionDate.ToString("g")</td>
+                    <td>@Model.sessions[i].ac</td>
+                    <td>
+                    @for (int i2 = 0; i2 < Model.sessions[i].memberNames.Length; i2++)
+                    {
+                        @Html.Raw(Model.sessions[i].memberNames[i2])
+                        <br />
+                    }
+                    </td>
+                    <td>@Model.sessions[i].remindersSent.ToString()</td>
+                </tr>
+            }
+
+            if (Model.sessions[i].ac == "Canceled")
+            {
+                <tr class="data_red">
+                    <td>@Model.sessions[i].sessionDate.ToString("g")</td>
+                    <td>@Model.sessions[i].ac</td>
+                    <td>
+                    @for (int i2 = 0; i2 < Model.sessions[i].memberNames.Length; i2++)
+                    {
+                        @Html.Raw(Model.sessions[i].memberNames[i2])
+                        <br />
+                    }
+                    </td>
+                    <td>@Model.sessions[i].remindersSent.ToString()</td>
+                </tr>
+            }
+
+            if (Model.sessions[i].ac == "Finished")
+            {
+                <tr class="data_blue">
+                    <td>@Model.sessions[i].sessionDate.ToString("g")</td>
+                    <td>@Model.sessions[i].ac</td>
+                    <td>
+                    @for (int i2 = 0; i2 < Model.sessions[i].memberNames.Length; i2++)
+                    {
+                        @Html.Raw(Model.sessions[i].memberNames[i2])
+                        <br />
+                    }
+                    </td>
+                    <td>@Model.sessions[i].remindersSent.ToString()</td>
+                </tr>
+            }
+                
+        }
+    </table>
+}

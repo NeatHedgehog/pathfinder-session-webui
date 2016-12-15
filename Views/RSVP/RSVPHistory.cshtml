@@ -1,0 +1,20 @@
+@model List<AutoMailerWebUI.Models.ResponseList>
+
+@{
+    ViewData["Title"] = "RSVP History";
+}
+
+@if(Model != null && Model.Count > 0)
+{
+    foreach (AutoMailerWebUI.Models.ResponseList rl in Model)
+    {
+        Html.RenderPartial("_SubRSVPHistory", rl);
+    }
+}
+
+else
+{
+    <header>
+        <h2>No recorded sessions</h2>
+    </header>
+}

@@ -1,0 +1,50 @@
+@model AutoMailerWebUI.Models.ResponseList
+
+@if(Model.responses.Length > 0)
+{
+<header>
+    <h2>RSVP List For: @Model.sessionDate.ToString("g")</h2>
+</header>
+
+<table class="response_table">
+    <tr>
+        <th>Member</th>
+        <th>Response</th>
+        <th>Cancel Reason</th>
+    </tr>
+    @for(int i = 0; i < Model.responses.Length; i++)
+    {
+        if(Model.responses[i].rsvpResponse == "Going")
+        {
+            <tr class="data_green">
+                <td>@Model.responses[i].memberName</td>
+                <td>@Model.responses[i].rsvpResponse</td>
+                <td>@Model.responses[i].cancelReason</td>
+            </tr>
+        }
+
+        if(Model.responses[i].rsvpResponse == "Not Going")
+        {
+            <tr class="data_red">
+                <td>@Model.responses[i].memberName</td>
+                <td>@Model.responses[i].rsvpResponse</td>
+                <td>@Model.responses[i].cancelReason</td>
+            </tr>
+        }
+
+        if(Model.responses[i].rsvpResponse == "Not Responded")
+        {
+            <tr class="data_gray">
+                <td>@Model.responses[i].memberName</td>
+                <td>@Model.responses[i].rsvpResponse</td>
+                <td>@Model.responses[i].cancelReason</td>
+            </tr>
+        }
+    }
+</table>
+}
+
+else
+{
+    
+}

@@ -1,0 +1,30 @@
+@model AutoMailerWebUI.Models.ResponseModel
+
+@{
+    ViewData["Title"] = "RSVP";
+}
+
+<header>
+    @if(Model.valid)
+    {
+        <h2>Lots of good things happening here.</h2>
+    }
+
+    else
+    {
+        <h2>Nothing to see here.</h2>
+    }
+</header>
+
+@if(Model.valid)
+{
+    <form asp-controller="RSVP" asp-action="SubmitRSVP" method="post" class="form-horizontal">
+        @Html.DropDownList("rsvpResponse", new List<SelectListItem>()
+            { new SelectListItem() { Text = "Going", Value = "G"}
+            , new SelectListItem() { Text = "Not Going", Value = "C"}})
+        @Html.EditorFor(Model => Model.cancelReason)
+        <div class="hidden">@Html.EditorFor(Model => Model.validationGuid)</div>
+
+        <input type="submit" value="RSVP" class="btn btn-default" />
+    </form>
+}

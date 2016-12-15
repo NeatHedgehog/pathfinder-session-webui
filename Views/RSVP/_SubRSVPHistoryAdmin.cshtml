@@ -1,0 +1,64 @@
+@model AutoMailerWebUI.Models.ResponseList
+
+@if(Model.responses.Length > 0)
+{
+<header>
+    <h2>Attendance List For: @Model.sessionDate.ToString("g")</h2>
+</header>
+
+<table class="response_table">
+    <tr>
+        <th>Member</th>
+        <th>Response</th>
+        <th>Cancel Reason</th>
+        <th>Show / No Show</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @for(int i = 0; i < Model.responses.Length; i++)
+    {
+        if(Model.responses[i].rsvpResponse == "Going" && Model.responses[i].showNoShow != "No Show")
+        {
+            <tr class="data_green">
+                <td>@Model.responses[i].memberName</td>
+                <td>@Model.responses[i].rsvpResponse</td>
+                <td>@Model.responses[i].cancelReason</td>
+                <td>@Model.responses[i].showNoShow</td>
+                <td>@Html.ActionLink("Show", "UpdateShowNoShow", "RSVP", new { _show = "S", _rsvpGuid = Model.responses[i].validationGuid, _passthroughkey = Model.adminKey })</td>
+                <td>@Html.ActionLink("No Show", "UpdateShowNoShow", "RSVP", new { _show = "N", _rsvpGuid = Model.responses[i].validationGuid, _passthroughkey = Model.adminKey })</td>
+            </tr>
+        }
+
+        if(Model.responses[i].rsvpResponse == "Not Going"
+            || (Model.responses[i].rsvpResponse != "Not Responded" && Model.responses[i].showNoShow == "No Show"))
+        {
+            <tr class="data_red">
+                <td>@Model.responses[i].memberName</td>
+                <td>@Model.responses[i].rsvpResponse</td>
+                <td>@Model.responses[i].cancelReason</td>
+                <td>@Model.responses[i].showNoShow</td>
+                <td>@Html.ActionLink("Show", "UpdateShowNoShow", "RSVP", new { _show = "S", _rsvpGuid = Model.responses[i].validationGuid, _passthroughkey = Model.adminKey })</td>
+                <td>@Html.ActionLink("No Show", "UpdateShowNoShow", "RSVP", new { _show = "N", _rsvpGuid = Model.responses[i].validationGuid, _passthroughkey = Model.adminKey })</td>
+            </tr>
+        }
+
+        if(Model.responses[i].rsvpResponse == "Not Responded")
+        {
+            <tr class="data_gray">
+                <td>@Model.responses[i].memberName</td>
+                <td>@Model.responses[i].rsvpResponse</td>
+                <td>@Model.responses[i].cancelReason</td>
+                <td>@Model.responses[i].showNoShow</td>
+                <td>@Html.ActionLink("Show", "UpdateShowNoShow", "RSVP", new { _show = "S", _rsvpGuid = Model.responses[i].validationGuid, _passthroughkey = Model.adminKey })</td>
+                <td>@Html.ActionLink("No Show", "UpdateShowNoShow", "RSVP", new { _show = "N", _rsvpGuid = Model.responses[i].validationGuid, _passthroughkey = Model.adminKey })</td>
+            </tr>
+        }
+    }
+</table>
+
+}
+
+else
+{
+    
+}
