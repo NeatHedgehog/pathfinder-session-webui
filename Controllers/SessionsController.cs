@@ -34,5 +34,31 @@ namespace WebApplication.Controllers
 
             return View(sl);
         }
+
+        [HttpGet]
+        public IActionResult AdminSessionIndex()
+        {
+            SessionList sl;
+
+            try
+            {
+                sl = new SessionList(paths.Schedule, DateTime.Now.AddDays(-1));
+            }
+
+            catch (System.IO.IOException)
+            {
+                return View("~/Views/Errors/GenericError.cshtml", "Something happened while trying to read the session list. Please try again.");
+            }
+
+            return View(sl);
+        }
+
+        [HttpPost]
+        public IActionResult AddSession([FromForm]NewSession _newSession)
+        {
+            Session _session = _newSession.BuildSession();
+
+            return RedirectToAction("AdminSessionIndex");
+        }
     }
 }

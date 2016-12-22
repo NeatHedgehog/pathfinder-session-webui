@@ -290,4 +290,19 @@ namespace AutoMailerWebUI.Models
         public string Attendance {get; set;}
         public string Schedule {get; set;}
     }
+
+    public class NewSession
+    {
+        string newDate {get;set;}
+        string newAmPm {get;set;}
+        int newHh {get;set;}
+        int newMm {get;set;}
+        string newEmails {get;set;}
+        string newMembers {get;set;}
+
+        public Session BuildSession()
+        {
+            return new Session();
+        }
+    }
 }
